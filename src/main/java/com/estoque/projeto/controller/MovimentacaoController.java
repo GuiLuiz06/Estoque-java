@@ -28,4 +28,15 @@ public class MovimentacaoController {
     public Movimentacao saida(Long produtoId, int quantidade) {
         return service.registrarSaida(produtoId, quantidade);
     }
+
+    @GetMapping
+    public List<Movimentacao> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/produto/{produtoId}")
+    public List<Movimentacao> listarPorProduto(@PathVariable Long produtoId) {
+        return service.listarPorProduto(produtoId);
+    }
 }
+
