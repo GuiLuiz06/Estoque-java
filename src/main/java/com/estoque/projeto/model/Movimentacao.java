@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 // Representa uma entrada ou saída de estoque.
 public class Movimentacao {
 
+    public Movimentacao(Long proximoID, Produto produto, Tipo tipo, int quantidade) {
+    }
+
     public enum Tipo {
         ENTRADA,
         SAIDA
