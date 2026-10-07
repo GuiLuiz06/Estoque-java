@@ -4,6 +4,8 @@ import com.estoque.projeto.model.Produto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -20,4 +22,17 @@ public class ProdutoController {
             @RequestParam Long categoriaId) {
         return service.cadastrar(produto, categoriaId);
     }
+
+    @GetMapping
+    public List<Produto> listar() {
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    public Produto buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
+
+
 }
+
