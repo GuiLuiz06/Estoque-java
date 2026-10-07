@@ -12,7 +12,7 @@
 ## 2. Descrição
 * **O problema:** A dificuldade de empresas em gerenciar de forma eficiente a entrada, saída e o saldo atual de seus produtos, o que pode gerar inconsistências, perdas ou falta de mercadorias.
 * **Público-alvo:** Administradores, gerentes de estoque e funcionários responsáveis pelo controle de inventário da empresa.
-* **Objetivo:** Fornecer uma API RESTful robusta e uma interface web para gerenciar produtos e categorias, além de registrar rigorosamente todas as movimentações de estoque, garantindo a integridade dos dados.
+* **Objetivo:** Fornecer uma API RESTful robusta e uma interface WEB para gerenciar produtos e categorias, além de registrar rigorosamente todas as movimentações de estoque, garantindo a integridade dos dados.
 
 ---
 
