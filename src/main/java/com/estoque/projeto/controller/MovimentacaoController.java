@@ -1,6 +1,7 @@
 package com.estoque.projeto.controller;
 
 import com.estoque.projeto.model.Movimentacao;
+import com.estoque.projeto.service.MovimentacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
