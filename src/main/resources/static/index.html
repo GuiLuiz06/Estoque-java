@@ -4,277 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Estoque</title>
-
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background: #f4f6f8;
-            color: #222;
-        }
-
-        header {
-            background: #1f2937;
-            color: white;
-            padding: 25px 40px;
-        }
-
-        header h1 {
-            margin-bottom: 8px;
-        }
-
-        header p {
-            color: #d1d5db;
-        }
-
-        nav {
-            background: white;
-            padding: 15px 40px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav a {
-            color: #333;
-            text-decoration: none;
-            margin-right: 25px;
-            font-weight: bold;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .card h2 {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .card strong {
-            font-size: 30px;
-        }
-
-        .content {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .content-header h2 {
-            font-size: 22px;
-        }
-
-        .button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .button:hover {
-            background: #1d4ed8;
-        }
-
-        .search {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 14px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background: #f8fafc;
-        }
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .available {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .low {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-        }
-
-        @media (max-width: 700px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .content-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            table {
-                font-size: 14px;
-            }
-
-            th,
-            td {
-                padding: 10px 5px;
-            }
-        }
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;color:#17202a}
+        header{background:#17202a;color:#fff;padding:22px 28px}
+        header h1{margin:0 0 5px;font-size:25px}
+        header p{margin:0;color:#cbd5e1}
+        main{max-width:1100px;margin:25px auto;padding:0 18px}
+        .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+        .card{background:#fff;border:1px solid #dfe4ea;border-radius:12px;padding:20px;margin-bottom:18px}
+        .card h2{margin:0 0 15px;font-size:19px}
+        label{display:block;font-size:14px;font-weight:bold;margin:10px 0 6px}
+        input,select,button{width:100%;padding:11px;border-radius:8px;border:1px solid #cbd5e1;font-size:15px}
+        button{background:#2563eb;color:white;border:0;font-weight:bold;cursor:pointer;margin-top:12px}
+        button:hover{background:#1d4ed8}
+        .secondary{background:#475569}.secondary:hover{background:#334155}
+        .danger{background:#b91c1c}.danger:hover{background:#991b1b}
+        .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+        .stat{background:#fff;border:1px solid #dfe4ea;border-radius:12px;padding:18px}
+        .stat strong{display:block;font-size:26px;margin-top:5px}
+        .table-wrap{overflow-x:auto}
+        table{width:100%;border-collapse:collapse}
+        th,td{text-align:left;padding:11px;border-bottom:1px solid #e5e7eb;font-size:14px}
+        th{background:#f8fafc}
+        .alert{padding:12px;border-radius:8px;margin-bottom:18px;display:none}
+        .success{background:#dcfce7;color:#166534}
+        .error{background:#fee2e2;color:#991b1b}
+        .low{font-weight:bold}
+        .actions{display:flex;gap:8px;flex-wrap:wrap}
+        .actions button{width:auto;padding:9px 14px;margin:0}
+        @media(max-width:760px){.grid,.stats{grid-template-columns:1fr}header{padding:18px}.card{padding:16px}}
     </style>
 </head>
-
 <body>
-
 <header>
-    <h1>📦 Controle de Estoque</h1>
-    <p>Gerenciamento de produtos e movimentações</p>
+    <h1>📦 Sistema de Controle de Estoque</h1>
+    <p>Interface de demonstração — Java + Spring Boot + Maven</p>
 </header>
 
-<nav>
-    <a href="#">Início</a>
-    <a href="#">Produtos</a>
-    <a href="#">Categorias</a>
-    <a href="#">Movimentações</a>
-</nav>
-
 <main>
+    <div id="message" class="alert"></div>
 
-    <section class="cards">
-        <div class="card">
-            <h2>Total de produtos</h2>
-            <strong>25</strong>
-        </div>
-
-        <div class="card">
-            <h2>Produtos disponíveis</h2>
-            <strong>22</strong>
-        </div>
-
-        <div class="card">
-            <h2>Estoque baixo</h2>
-            <strong>3</strong>
-        </div>
+    <section class="stats">
+        <div class="stat">Produtos<strong id="totalProdutos">0</strong></div>
+        <div class="stat">Categorias<strong id="totalCategorias">0</strong></div>
+        <div class="stat">Estoque baixo<strong id="estoqueBaixo">0</strong></div>
     </section>
 
-    <section class="content">
-
-        <div class="content-header">
-            <h2>Produtos em estoque</h2>
-            <button class="button">+ Novo produto</button>
+    <div class="grid">
+        <div class="card">
+            <h2>Nova categoria</h2>
+            <form id="categoriaForm">
+                <label for="categoriaNome">Nome</label>
+                <input id="categoriaNome" required placeholder="Ex.: Eletrônicos">
+                <button type="submit">Cadastrar categoria</button>
+            </form>
         </div>
 
-        <input
-            class="search"
-            type="text"
-            placeholder="🔎 Buscar produto..."
-        >
+        <div class="card">
+            <h2>Novo produto</h2>
+            <form id="produtoForm">
+                <label for="produtoNome">Nome</label>
+                <input id="produtoNome" required placeholder="Ex.: Teclado USB">
+                <label for="produtoPreco">Preço</label>
+                <input id="produtoPreco" type="number" min="0.01" step="0.01" required placeholder="89.90">
+                <label for="produtoMinimo">Estoque mínimo</label>
+                <input id="produtoMinimo" type="number" min="0" required placeholder="5">
+                <label for="produtoCategoria">Categoria</label>
+                <select id="produtoCategoria" required></select>
+                <button type="submit">Cadastrar produto</button>
+            </form>
+        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Produto</th>
-                    <th>Categoria</th>
-                    <th>Estoque</th>
-                    <th>Preço</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+        <div class="card">
+            <h2>Entrada de estoque</h2>
+            <form id="entradaForm">
+                <label for="entradaProduto">Produto</label>
+                <select id="entradaProduto" required></select>
+                <label for="entradaQtd">Quantidade</label>
+                <input id="entradaQtd" type="number" min="1" required placeholder="10">
+                <button type="submit">Registrar entrada</button>
+            </form>
+        </div>
 
-            <tbody>
-                <tr>
-                    <td>Teclado</td>
-                    <td>Periféricos</td>
-                    <td>15</td>
-                    <td>R$ 89,90</td>
-                    <td>
-                        <span class="status available">Disponível</span>
-                    </td>
-                </tr>
+        <div class="card">
+            <h2>Saída de estoque</h2>
+            <form id="saidaForm">
+                <label for="saidaProduto">Produto</label>
+                <select id="saidaProduto" required></select>
+                <label for="saidaQtd">Quantidade</label>
+                <input id="saidaQtd" type="number" min="1" required placeholder="3">
+                <button class="danger" type="submit">Registrar saída</button>
+            </form>
+        </div>
+    </div>
 
-                <tr>
-                    <td>Mouse</td>
-                    <td>Periféricos</td>
-                    <td>8</td>
-                    <td>R$ 59,90</td>
-                    <td>
-                        <span class="status available">Disponível</span>
-                    </td>
-                </tr>
+    <div class="card">
+        <h2>Produtos em estoque</h2>
+        <div class="actions">
+            <button class="secondary" id="atualizar" type="button">Atualizar</button>
+            <button class="secondary" id="mostrarBaixo" type="button">Mostrar estoque baixo</button>
+        </div>
+        <div class="table-wrap" style="margin-top:15px">
+            <table>
+                <thead>
+                <tr><th>ID</th><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Mínimo</th><th>Status</th></tr>
+                </thead>
+                <tbody id="produtosTabela"></tbody>
+            </table>
+        </div>
+    </div>
 
-                <tr>
-                    <td>Monitor</td>
-                    <td>Eletrônicos</td>
-                    <td>2</td>
-                    <td>R$ 799,90</td>
-                    <td>
-                        <span class="status low">Estoque baixo</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    </section>
-
+    <div class="card">
+        <h2>Movimentações</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr><th>ID</th><th>Produto</th><th>Tipo</th><th>Quantidade</th><th>Data</th></tr>
+                </thead>
+                <tbody id="movimentacoesTabela"></tbody>
+            </table>
+        </div>
+    </div>
 </main>
 
-<footer>
-    Sistema de Controle de Estoque
-</footer>
+<script>
+    const $ = id => document.getElementById(id);
 
+    function showMessage(text, error=false){
+        const el=$("message");
+        el.textContent=text;
+        el.className="alert " + (error ? "error" : "success");
+        el.style.display="block";
+        setTimeout(()=>el.style.display="none",3500);
+    }
+
+    async function api(url, options={}){
+        const response=await fetch(url, {
+            headers: {"Content-Type":"application/json", ...(options.headers||{})},
+            ...options
+        });
+        const text=await response.text();
+        let data;
+        try { data=text ? JSON.parse(text) : null; } catch { data=text; }
+        if(!response.ok){
+            const msg=(data && typeof data==="object" && data.message) ? data.message : "Não foi possível realizar a operação. Confira os dados e as regras de negócio.";
+            throw new Error(msg);
+        }
+        return data;
+    }
+
+    async function carregar(){
+        try{
+            const [categorias, produtos, movimentos]=await Promise.all([
+                api("/categorias"), api("/produtos"), api("/movimentacoes")
+            ]);
+
+            $("totalCategorias").textContent=categorias.length;
+            $("totalProdutos").textContent=produtos.length;
+            $("estoqueBaixo").textContent=produtos.filter(p=>p.estoque<=p.estoqueMinimo).length;
+
+            $("produtoCategoria").innerHTML='<option value="">Selecione...</option>' +
+                categorias.map(c=>`<option value="${c.id}">${c.nome}</option>`).join("");
+
+            const produtoOptions='<option value="">Selecione...</option>' +
+                produtos.map(p=>`<option value="${p.id}">${p.id} - ${p.nome} (estoque: ${p.estoque})</option>`).join("");
+            $("entradaProduto").innerHTML=produtoOptions;
+            $("saidaProduto").innerHTML=produtoOptions;
+
+            renderProdutos(produtos);
+            $("movimentacoesTabela").innerHTML=movimentos.length ? movimentos.map(m=>`
+            <tr>
+                <td>${m.id}</td>
+                <td>${m.produto.nome}</td>
+                <td>${m.tipo}</td>
+                <td>${m.quantidade}</td>
+                <td>${new Date(m.data).toLocaleString("pt-BR")}</td>
+            </tr>`).join("") :
+                '<tr><td colspan="5">Nenhuma movimentação registrada.</td></tr>';
+        }catch(e){ showMessage(e.message,true); }
+    }
+
+    function renderProdutos(produtos){
+        $("produtosTabela").innerHTML=produtos.length ? produtos.map(p=>{
+            const baixo=p.estoque<=p.estoqueMinimo;
+            return `<tr>
+            <td>${p.id}</td>
+            <td>${p.nome}</td>
+            <td>${p.categoria ? p.categoria.nome : "-"}</td>
+            <td>R$ ${Number(p.preco).toFixed(2).replace(".",",")}</td>
+            <td>${p.estoque}</td>
+            <td>${p.estoqueMinimo}</td>
+            <td class="${baixo ? "low":""}">${baixo ? "⚠ Estoque baixo":"✓ Normal"}</td>
+        </tr>`;
+        }).join("") : '<tr><td colspan="7">Nenhum produto cadastrado.</td></tr>';
+    }
+
+    $("categoriaForm").addEventListener("submit",async e=>{
+        e.preventDefault();
+        try{
+            await api("/categorias",{method:"POST",body:JSON.stringify({nome:$("categoriaNome").value.trim()})});
+            e.target.reset(); showMessage("Categoria cadastrada com sucesso!"); await carregar();
+        }catch(err){showMessage(err.message,true);}
+    });
+
+    $("produtoForm").addEventListener("submit",async e=>{
+        e.preventDefault();
+        try{
+            const categoriaId=$("produtoCategoria").value;
+            if(!categoriaId) throw new Error("Selecione uma categoria.");
+            await api("/produtos?categoriaId="+encodeURIComponent(categoriaId),{
+                method:"POST",
+                body:JSON.stringify({
+                    nome:$("produtoNome").value.trim(),
+                    preco:Number($("produtoPreco").value),
+                    estoqueMinimo:Number($("produtoMinimo").value)
+                })
+            });
+            e.target.reset(); showMessage("Produto cadastrado com sucesso!"); await carregar();
+        }catch(err){showMessage(err.message,true);}
+    });
+
+    async function movimentar(tipo){
+        const produto=$(tipo==="entrada" ? "entradaProduto":"saidaProduto").value;
+        const qtd=Number($(tipo==="entrada" ? "entradaQtd":"saidaQtd").value);
+        if(!produto) throw new Error("Selecione um produto.");
+        if(!Number.isInteger(qtd) || qtd<=0) throw new Error("A quantidade deve ser maior que zero.");
+        await api(`/movimentacoes/${tipo}?produtoId=${encodeURIComponent(produto)}&quantidade=${qtd}`,{method:"POST"});
+    }
+
+    $("entradaForm").addEventListener("submit",async e=>{
+        e.preventDefault();
+        try{await movimentar("entrada");e.target.reset();showMessage("Entrada registrada!");await carregar();}
+        catch(err){showMessage(err.message,true);}
+    });
+
+    $("saidaForm").addEventListener("submit",async e=>{
+        e.preventDefault();
+        try{await movimentar("saida");e.target.reset();showMessage("Saída registrada!");await carregar();}
+        catch(err){showMessage(err.message,true);}
+    });
+
+    $("atualizar").addEventListener("click",carregar);
+    $("mostrarBaixo").addEventListener("click",async()=>{
+        try{renderProdutos(await api("/produtos/estoque-baixo"));}catch(e){showMessage(e.message,true);}
+    });
+
+    carregar();
+</script>
 </body>
 </html>
