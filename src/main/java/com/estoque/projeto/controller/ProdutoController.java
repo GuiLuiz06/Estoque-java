@@ -33,6 +33,9 @@ public class ProdutoController {
         return service.buscarPorId(id);
     }
 
-
+    @GetMapping("/estoque-baixo")
+    public List<Produto> listarEstoqueBaixo() {
+        return service.listarEstoqueBaixo();
+    }
 }
 
