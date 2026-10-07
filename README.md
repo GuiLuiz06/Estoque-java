@@ -90,6 +90,18 @@ O projeto conta com testes automatizados para garantir a integridade das regras 
 mvn test
 
 ```
+Também é possível executar pelo IntelliJ: abra `src/test/java/com/estoque/projeto/service/MovimentacaoServiceTest.java`, clique com o botão direito e escolha Run `MovimentacaoServiceTest`.
+
+Os testes (JUnit 5) verificam:
+
+| Teste                                            |                                              O que verifica |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| **deveCadastrarProduto**                         | O produto é cadastrado, recebe ID e começa com estoque zero |
+| **deveRegistrarEntrada**                         |                               Uma entrada aumenta o estoque |
+| **deveRegistrarSaida**                           |                                 Uma saída diminui o estoque |
+| **naoDevePermitirSaidaMaiorQueEstoque**          |                         Saída maior que o saldo é bloqueada |
+| **naoDevePermitirQuantidadeMenorOuIgualAZero**   |                      Quantidade zero ou negativa é recusada |
+| **naoDevePermitirProdutoInexistente**            |                  Movimentar produto inexistente é bloqueado |
 
 ---
 
@@ -100,30 +112,39 @@ sistema-controle-estoque
  ├── pom.xml
  ├── README.md
  ├── GUIA_APRESENTACAO.md
- └── src
-     ├── main
-     │   ├── java
-     │   │   └── com
-     │   │       └── estoque
-     │   │           └── projeto
-     │   │               ├── Main.java
-     │   │               ├── controller
-     │   │               ├── model
-     │   │               ├── repository
-     │   │               └── service
-     │   └── resources
-     │       └── static
+ └── src/
+     ├── main/
+     │   ├── java/
+     │   │   └─ com/estoque/projeto/
+     │   │       ├── Main.java
+     │   │       ├── controller/
+     │   │       │   ├── CategoriaController.java
+     │   │       │   ├── ProdutoController.java
+     │   │       │   └── MovimentacaoController.java
+     │   │       ├── model/
+     │   │       │   ├── Categoria.java
+     │   │       │   ├── Produto.java
+     │   │       │   └── Movimentacao.java
+     │   │       ├── repository/
+     │   │       │   ├── CategoriaRepository.java
+     │   │       │   ├── ProdutoRepository.java
+     │   │       │   └── MovimentacaoRepository.java
+     │   │       └── service/
+     │   │           ├── CategoriaService.java
+     │   │           ├── ProdutoService.java
+     │   │           └── MovimentacaoService.java
+     │   └── resources/
+     │       └── static/
      │           └── index.html
-     └── test
-         └── java
-             └── com
-                 └── estoque
-                     └── projeto
-                         └── service
+     └── test/
+         └── java/
+             └── com/
+                 └── estoque/
+                     └── projeto/
+                         └── service/
                              └── MovimentacaoServiceTest.java
 
 ```
-
 ---
 
 ## 10. Histórico do Desenvolvimento
@@ -139,13 +160,104 @@ sistema-controle-estoque
 
 ---
 
-## 11. Participação dos Integrantes
+## 11. Prompts
+* **Prompt inicial — criação do projeto**
+  
+"Quero desenvolver um projeto acadêmico chamado Sistema de Controle de Estoque.
+ Analise os requisitos da atividade que estou seguindo e desenvolva o projeto completo em Java com Spring Boot e Maven, mantendo uma estrutura simples e adequada para um aluno apresentar e explicar.
 
-| Integrante | Contribuições |
+ A ideia é que com o projeto possamos fazer o cadastro de categorias, de produtos, controle de estoque, entradas e saídas, regras de negócio, armazenamento em memória (sem banco de dados), organização em Model, Repository, Service e Controller. 
+ 
+ Priorize um código simples e didático. Evite implementar funcionalidades desnecessárias que não sejam exigidas pela atividade.
+ 
+Antes de criar o projeto, apresente a estrutura de pastas e explique brevemente a responsabilidade de cada camada."
+
+O objetivo era pedir que a IA assumisse a construção do projeto acadêmico a partir dos requisitos da atividade, criando a estrutura inicial do sistema.
+  
+* **Prompt — interface interativa**
+
+"Ajuste o projeto para que eu consiga testar todas as funcionalidades de forma interativa, sem precisar utilizar Postman ou outra ferramenta externa.
+
+ Crie uma interface simples conectada ao Back-End que permita demonstrar: cadastro de categorias, cadastro de produtos, listagem de produtos, entrada de estoque, saída de estoque, consulta de estoque, identificação de estoque baixo, consulta das movimentações.
+
+ A interface deve utilizar as mesmas regras de negócio do projeto, sem criar uma lógica paralela apenas para demonstração.
+
+Mantenha a arquitetura: Controller → Service → Repository → dados em memória.
+
+O objetivo principal é facilitar a demonstração do projeto na apresentação."
+
+Ele mudou o modo de interação, mas não deveria mudar a lógica do sistema.
+Antes:
+```
+Postman / navegador
+       ↓
+   Controller
+       ↓
+    Service
+       ↓
+  Repository
+
+```
+Com interface:
+```
+   Interface
+       ↓
+   Controller
+       ↓
+    Service
+       ↓
+  Repository
+
+```
+Ou seja, a interface apenas tornou o sistema mais fácil de utilizar.
+
+* **Prompt — simplificar as classes**
+
+"Quero que todas as classes, métodos e estruturas utilizadas estejam em um nível que eu consiga entender e explicar.
+
+Por exemplo, se existir uma classe como ApiExceptionHandler que não seja necessária para os requisitos e seja difícil de explicar, simplifique ou remova-a.
+
+Depois da revisão: liste o que foi removido, liste o que foi simplificado, explique a responsabilidade de cada classe, explique como as classes se relacionam;"
+
+* **Prompt — README profissional**
+
+"Me ajude com um README.md profissional e completo para o projeto Sistema de Controle de Estoque. O texto deve ser profissional, mas escrito de maneira que um aluno consiga entender e explicar o conteúdo durante uma apresentação."
+
+* **O que aconteceu com os prompts?**
+
+A sequência foi aproximadamente:
+```
+1. Criar o projeto
+        ↓
+2. Entregar como projeto pronto
+        ↓
+3. Criar interface para testar
+        ↓
+4. Simplificar para eu conseguir explicar
+        ↓
+5. Documentar profissionalmente
+        ↓
+6. Trocar HTML por terminal
+
+```
+
+| Etapa                                            |                                       Principal preocupação |
+| ------------------------------------------------ | ----------------------------------------------------------- |
+| **Criação**                                      |                                             Fazer o sistema |
+| **Estrutura**                                    |                                 Conseguir abrir no IntelliJ |
+| **Interface**                                    |                                            Conseguir testar |
+| **Simplificação**                                |                                          Conseguir explicar |
+| **README**                                       |                                        Conseguir documentar |
+
+---
+
+## 12. Participação dos Integrantes
+
+| Integrante         |                Contribuições |
 | ------------------ | ---------------------------- |
-| **Artur Barreto**  | [Descrever as contribuições] |
-| **Guilherme Luiz** | [Descrever as contribuições] |
-| **Jose Lucas**     | [Descrever as contribuições] |
-| **Isadora Maria**  | [Descrever as contribuições] |
-| **Bruno Serpa**    | [Descrever as contribuições] |
-| **Italo Romero**   | [Descrever as contribuições] |
+| **Isadora Maria**  |                        Model |
+| **Guilherme Luiz** |                   Repository |
+| **Jose Lucas**     |                     Services |
+| **Bruno Serpa**    |                  Controllers |
+| **Italo Romero**   |                       Testes |
+| **Artur Barreto**  |     Documentação / Interface |
